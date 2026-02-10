@@ -14,19 +14,32 @@ Symfony 7 · PHP 8.4 · Apache · MySQL 8 · Stimulus
 
 ## Installation (première fois)
 
+### Sur Linux/Mac :
+
 ```bash
 # 1. Cloner le projet
 git clone <URL_DU_REPO>
 cd <NOM_DU_PROJET>
 
-# 2. Lancer le setup (build + dépendances + assets)
+# 2. Lancer le setup (build + dépendances + assets) 
 chmod +x docker-setup.sh
 ./docker-setup.sh
 ```
 
+### Sur Windows :
+
+```powershell
+# 1. Cloner le projet
+git clone <URL_DU_REPO>
+cd <NOM_DU_PROJET>
+
+# 2. Lancer le setup
+.\docker-setup.ps1
+```
+
 ➡️ L'application est disponible sur [http://localhost:8000](http://localhost:8000)
 
-> `docker-setup.sh` est à lancer **une seule fois** par machine. Il build l'image, installe les dépendances PHP et les assets JS.
+> Les scripts de setup sont à lancer **une seule fois** par machine. Ils build l'image, installent les dépendances PHP et les assets JS.
 
 ---
 
@@ -71,19 +84,24 @@ docker compose exec app php bin/console importmap:require <package>
 
 ## Base de données
 
-| Paramètre | Valeur     |
-|-----------|------------|
-| Host      | localhost  |
-| Port      | 3307       |
-| User      | root       |
-| Password  | root       |
-| Database  | symfony    |
+| Paramètre | Valeur    |
+| --------- | --------- |
+| Host      | localhost |
+| Port      | 3307      |
+| User      | root      |
+| Password  | root      |
+| Database  | symfony   |
 
 ---
 
 ## Repartir de zéro
 
 ```bash
-docker compose down -v          # supprime les volumes
-./docker-setup.sh               # réinstalle tout
+docker compose down -v # supprime les volumes
+./docker-setup.sh # réinstalle tout (Linux/Mac)
+```
+
+```powershell
+docker compose down -v # supprime les volumes
+.\docker-setup.ps1 # réinstalle tout (Windows)
 ```
