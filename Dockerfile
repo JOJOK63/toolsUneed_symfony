@@ -10,6 +10,10 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Installer Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+
 WORKDIR /var/www/html
 RUN git config --global --add safe.directory /var/www/html
 
