@@ -1,0 +1,44 @@
+{% set current_path = app.request.pathinfo %}
+
+<ul class="nav">
+    <li>
+        <a href="/" class="{{ current_path == '/' ? 'active' : '' }}">Accueil</a>
+    </li>
+    <li>
+        <a href="/budgets" class="{{ current_path starts with '/budgets' ? 'active' : '' }}">Budgets</a>
+    </li>
+    <li>
+        <a href="/reports" class="{{ current_path starts with '/reports' ? 'active' : '' }}">Rapports</a>
+    </li>
+</ul>
+
+
+<style>
+    .nav{
+        width: 100%;
+        height: var(--nav-height);
+        background: var(--primary-color);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .nav li{
+        color: var(--text-color-white);
+        list-style: none;
+        width: 150px;
+        height: 100%;
+    }
+    .nav li a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-color-white);
+        text-decoration: none;
+        height: 100%;
+        width: 100%;
+    }
+    .nav li a.active{
+        background: var(--primary-color-active);
+    }
+</style>

@@ -3,6 +3,10 @@ FROM php:8.4-apache
 RUN apt-get update && apt-get install -y git unzip \
     && docker-php-ext-install pdo pdo_mysql opcache
 
+# Installer Node.js 20.x et npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
 RUN a2enmod rewrite
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
     && sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
@@ -23,6 +27,9 @@ RUN mkdir -p var/cache var/log var/sessions \
     && chmod -R 775 var
 
 RUN composer install --no-interaction --optimize-autoloader
+
+# Installer les dépendances npm si package.json existe
+RUN if [ -f package.json ]; then npm install; fi
 
 # Entrypoint
 COPY docker/entrypoint.sh /entrypoint.sh
